@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Movies Highlight</string>
+    <string name="discover">Discover</string>
+    <string name="favorite">Favorite</string>
+    <string name="title_activity_details">Movie Details</string>
+
+    <string-array name="tab_title">
+        <item>Movie</item>
+        <item>TV Show</item>
+    </string-array>
+
+    <string name="action_search"><![CDATA[Search Movie & TV Series]]></string>
+
+    <string name="msg_error_swipe_down">An error occurred. Swipe down to try again</string>
+    <string name="msg_no_data">There is no data found</string>
+    <string name="search_insert_keyword">Please insert the keyword</string>
+    <string name="search_more_3">Please insert more than 3 letters for keyword</string>
+
+    <string name="details_adult_content">This movie/TV show contains adult content</string>
+
+    <string name="msg_added_db">Added to favorite</string>
+    <string name="msg_removed_db">Removed from favorite</string>
+
+    <string name="notification_daily_title">Have you opened this app today?</string>
+    <string name="notification_daily_content">Looking for some movies and TV series to watch today?</string>
+    <string name="favorite_no_item">You have no favorite item for this category</string>
+</resources>

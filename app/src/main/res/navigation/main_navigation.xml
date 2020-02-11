@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/nav_discover">
+
+    <fragment
+        android:id="@+id/nav_discover"
+        android:name="ak.android.movieshighlight.main.discover.DiscoverFragment"
+        android:label="@string/discover"
+        tools:layout="@layout/fragment_discover" />
+
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="ak.android.movieshighlight.main.discover.DiscoverFragment"
+        android:label="@string/favorite"
+        tools:layout="@layout/fragment_discover" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="ak.android.movieshighlight.main.search.SearchResultFragment"
+        tools:layout="@layout/fragment_search" />
+
+</navigation>

@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "ak.android.movieshighlight"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // TODO: Input your TMDB API key here...
+        buildConfigField "String", "API_KEY", '""'
+        buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+        buildConfigField "String", "BASE_IMAGE_URL", '"https://image.tmdb.org/t/p/w500"'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    androidExtensions {
+        experimental = true
+    }
+    // Java 1.8
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Legacy support
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Lifecycle/ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    // Vector drawable
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.2.0'
+    implementation 'androidx.navigation:navigation-ui:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0'
+    // Retrofit, Gson, Picasso for API
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    // Material Design
+    implementation 'com.google.android.material:material:1.0.0'
+    // Room Sqlite
+    implementation 'androidx.room:room-runtime:2.2.3'
+    kapt 'androidx.room:room-compiler:2.2.3'
+    // Palette
+    implementation 'androidx.palette:palette:1.0.0'
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.3.1"
+}
