@@ -1,7 +1,6 @@
 package ak.android.movieshighlight.main.discover.movie
 
 import ak.android.movieshighlight.common.errLog
-import ak.android.movieshighlight.model.genre.GenresItem
 import ak.android.movieshighlight.model.movie.MovieResultsItem
 import ak.android.movieshighlight.retrofit.RetrofitFactory
 import androidx.lifecycle.LiveData
@@ -10,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-object MovieRepository {
+object DiscoverMovieRepository {
     private val _movies = MutableLiveData<List<MovieResultsItem>>()
     val movies: LiveData<List<MovieResultsItem>> = _movies
 

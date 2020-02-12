@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-object TvSeriesRepository {
+object DiscoverTvSeriesRepository {
     private val _tvSeries = MutableLiveData<List<TvResultsItem>>()
     val tvSeries: LiveData<List<TvResultsItem>> = _tvSeries
 

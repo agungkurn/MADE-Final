@@ -34,31 +34,43 @@ data class FilmInfo(
     val banner: String,
 
     val category: String
-) : Parcelable {
-    fun toMovieModel() = MovieResultsItem(
-        id = id,
-        title = title,
-        originalTitle = originalTitle,
-        originalLanguage = originalLanguage,
-        genreIds = genreId.split(", ").map { it.toInt() },
-        voteAverage = rate,
-        adult = adult,
-        releaseDate = dateReleased,
-        overview = overview,
-        posterPath = poster,
-        backdropPath = banner
-    )
+) : Parcelable
 
-    fun toTvSeriesModel() = TvResultsItem(
-        id = id,
-        name = title,
-        originalName = originalTitle,
-        originalLanguage = originalLanguage,
-        genreIds = genreId.split(", ").map { it.toInt() },
-        voteAverage = rate,
-        firstAirDate = dateReleased,
-        overview = overview,
-        posterPath = poster,
-        backdropPath = banner
-    )
+fun List<FilmInfo>.toMovieModel() = map {
+    if (it.category == "movie") {
+        MovieResultsItem(
+            id = it.id,
+            title = it.title,
+            originalTitle = it.originalTitle,
+            originalLanguage = it.originalLanguage,
+            genreIds = it.genreId.split(", ").map { it.toInt() },
+            voteAverage = it.rate,
+            adult = it.adult,
+            releaseDate = it.dateReleased,
+            overview = it.overview,
+            posterPath = it.poster,
+            backdropPath = it.banner
+        )
+    } else {
+        throw TypeCastException("${it.category} can not be converted to MovieResultsItem")
+    }
+}
+
+fun List<FilmInfo>.toTvModel() = map {
+    if (it.category == "tv") {
+        TvResultsItem(
+            id = it.id,
+            name = it.title,
+            originalName = it.originalTitle,
+            originalLanguage = it.originalLanguage,
+            genreIds = it.genreId.split(", ").map { it.toInt() },
+            voteAverage = it.rate,
+            firstAirDate = it.dateReleased,
+            overview = it.overview,
+            posterPath = it.poster,
+            backdropPath = it.banner
+        )
+    } else {
+        throw TypeCastException("${it.category} can not be converted to TvResultsItem")
+    }
 }

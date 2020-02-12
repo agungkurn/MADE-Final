@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="ak.android.movieshighlight.main.discover.DiscoverFragment"
+        android:name="ak.android.movieshighlight.main.favorite.FavoriteFragment"
         android:label="@string/favorite"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/nav_search"

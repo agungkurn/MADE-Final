@@ -39,14 +39,16 @@ class DetailsActivity : AppCompatActivity() {
     private fun showData() {
         intent.extras?.let {
             when (val sourceData = it.getParcelable<Parcelable>(DATA_KEY)) {
+                // From Discover
+                is FilmInfo -> {
+                    showInfo(sourceData)
+                }
+                // From Search
                 is MovieResultsItem -> {
                     showInfo(sourceData.toDatabaseModel())
                 }
                 is TvResultsItem -> {
                     showInfo(sourceData.toDatabaseModel())
-                }
-                is FilmInfo -> {
-                    showInfo(sourceData)
                 }
             }
         }

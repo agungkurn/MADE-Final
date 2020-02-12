@@ -1,7 +1,8 @@
-package ak.android.movieshighlight.main.discover
+package ak.android.movieshighlight.main
 
 import ak.android.movieshighlight.BuildConfig
 import ak.android.movieshighlight.R
+import ak.android.movieshighlight.database.FilmInfo
 import ak.android.movieshighlight.details.DetailsActivity
 import ak.android.movieshighlight.model.movie.MovieResultsItem
 import ak.android.movieshighlight.model.tv.TvResultsItem
@@ -28,26 +29,27 @@ class FilmAdapter(private val context: Context, private val films: List<Any?>) :
 
     inner class FilmViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindItem(film: Any?) {
-            var poster: String? = null
-            val intent = Intent(context, DetailsActivity::class.java)
+            var data: FilmInfo? = null
 
             when (film) {
                 is MovieResultsItem -> {
-                    poster = film.posterPath
-                    intent.putExtra(DetailsActivity.DATA_KEY, film)
+                    data = film.toDatabaseModel()
                 }
                 is TvResultsItem -> {
-                    poster = film.posterPath
-                    intent.putExtra(DetailsActivity.DATA_KEY, film)
+                    data = film.toDatabaseModel()
                 }
             }
 
+            itemView.tv_title.text = data?.title
             Picasso.get()
-                .load(BuildConfig.BASE_IMAGE_URL + poster)
+                .load(BuildConfig.BASE_IMAGE_URL + data?.poster)
                 .into(itemView.iv_poster)
 
             itemView.setOnClickListener {
-                context.startActivity(intent)
+                Intent(context, DetailsActivity::class.java).also {
+                    it.putExtra(DetailsActivity.DATA_KEY, data)
+                    context.startActivity(it)
+                }
             }
         }
     }

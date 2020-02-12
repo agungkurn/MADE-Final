@@ -3,7 +3,7 @@ package ak.android.movieshighlight.main.discover.tv
 import ak.android.movieshighlight.R
 import ak.android.movieshighlight.common.hide
 import ak.android.movieshighlight.common.show
-import ak.android.movieshighlight.main.discover.FilmAdapter
+import ak.android.movieshighlight.main.FilmAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_tv.*
+import kotlinx.android.synthetic.main.fragment_discover_tv.*
 
-class TvSeriesFragment : Fragment() {
+class DiscoverTvSeriesFragment : Fragment() {
     companion object {
-        private var instance: TvSeriesFragment? = null
+        private var instance: DiscoverTvSeriesFragment? = null
 
-        fun newInstance(): TvSeriesFragment {
+        fun newInstance(): DiscoverTvSeriesFragment {
             if (instance == null) {
-                instance = TvSeriesFragment()
+                instance = DiscoverTvSeriesFragment()
             }
 
             return instance!!
@@ -27,12 +27,12 @@ class TvSeriesFragment : Fragment() {
     }
 
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(TvSeriesViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(DiscoverTvSeriesViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_tv, container, false)
+    ) = inflater.inflate(R.layout.fragment_discover_tv, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
