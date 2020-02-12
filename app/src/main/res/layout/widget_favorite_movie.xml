@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FEF">
+
+    <StackView
+        android:id="@+id/stack_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:loopViews="true" />
+
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/msg_no_data"
+        android:textAlignment="center"
+        android:textSize="21sp"
+        android:visibility="gone" />
+
+</FrameLayout>

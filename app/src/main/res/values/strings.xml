@@ -27,4 +27,6 @@
     <string name="new_release">movies released today!</string>
     <string name="notification_preference">Notification preference</string>
     <string name="preference_notification">Notification Preferences</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
