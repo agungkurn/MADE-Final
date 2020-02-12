@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                     state = it.saveState()
                 }.navigate(R.id.nav_search)
 
+                searchMenuItem.isVisible = false
                 nav_bar.hide()
 
                 return true
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                     it.restoreState(state)
                 }.navigateUp()
 
+                searchMenuItem.isVisible = false
                 nav_bar.show()
 
                 return true
