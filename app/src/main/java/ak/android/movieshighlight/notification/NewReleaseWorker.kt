@@ -47,10 +47,7 @@ class NewReleaseWorker(private val appContext: Context, workerParameters: Worker
 
             notificationReceiver
                 .showNotification(
-                    appContext,
-                    title,
-                    contentStr,
-                    NotificationReceiver.ID_NEW_RELEASE
+                    appContext, title, contentStr, NotificationReceiver.ID_NEW_RELEASE
                 )
         }
     }

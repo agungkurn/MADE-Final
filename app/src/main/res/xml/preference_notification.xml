@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        app:key="daily"
+        app:title="Daily notification (08:00 every day)" />
+    <SwitchPreferenceCompat
+        app:key="release"
+        app:title="New movie notification (07:00)" />
+</PreferenceScreen>

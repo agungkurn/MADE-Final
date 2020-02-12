@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_header.view.*
+import kotlinx.android.synthetic.main.list_search_header.view.*
 import kotlinx.android.synthetic.main.list_search_items.view.*
 
 class SearchAdapter(private val context: Context, private val items: List<Any>) :
@@ -35,7 +35,7 @@ class SearchAdapter(private val context: Context, private val items: List<Any>) 
         return when (viewType) {
             ITEM_HEADER -> SearchHeaderViewHolder(
                 LayoutInflater.from(context).inflate(
-                    R.layout.list_header,
+                    R.layout.list_search_header,
                     parent,
                     false
                 )

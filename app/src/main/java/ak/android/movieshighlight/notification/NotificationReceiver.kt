@@ -14,6 +14,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -125,19 +126,23 @@ class NotificationReceiver : BroadcastReceiver() {
             set(Calendar.SECOND, 0)
         }
 
-        if (alarmIsNotActive(context, ID_REMINDER, intent)) {
-            val pendingIntent =
-                PendingIntent.getBroadcast(
-                    context, ID_REMINDER, intent, PendingIntent.FLAG_ONE_SHOT
-                )
-            alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-            )
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, ID_REMINDER, intent, PendingIntent.FLAG_ONE_SHOT
+        )
 
-            log("Daily notification set")
+        if (alarmIsEnabled(context, ID_REMINDER)) {
+            if (alarmIsNotActive(context, ID_REMINDER, intent)) {
+                alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
+                )
+
+                log("Daily notification set")
+            }
+        } else {
+            alarmManager.cancel(pendingIntent)
         }
     }
 
@@ -151,22 +156,38 @@ class NotificationReceiver : BroadcastReceiver() {
             set(Calendar.SECOND, 0)
         }
 
-        if (alarmIsNotActive(context, ID_NEW_RELEASE, intent)) {
-            val pendingIntent =
-                PendingIntent.getBroadcast(
-                    context, ID_NEW_RELEASE, intent, PendingIntent.FLAG_ONE_SHOT
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, ID_NEW_RELEASE, intent, PendingIntent.FLAG_ONE_SHOT
+        )
+
+        if (alarmIsEnabled(context, ID_NEW_RELEASE)) {
+            if (alarmIsNotActive(context, ID_NEW_RELEASE, intent)) {
+                alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent
                 )
-            alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-            )
-            log("Daily release set")
+                log("Daily release set")
+            }
+        } else {
+            alarmManager.cancel(pendingIntent)
         }
     }
 
     private fun alarmIsNotActive(context: Context, notificationId: Int, intent: Intent): Boolean =
         PendingIntent
             .getBroadcast(context, notificationId, intent, PendingIntent.FLAG_NO_CREATE) != null
+
+    private fun alarmIsEnabled(context: Context, notificationId: Int): Boolean {
+        val preference = PreferenceManager.getDefaultSharedPreferences(context)
+        val dailyNotification = preference.getBoolean("daily", true)
+        val releaseNotification = preference.getBoolean("release", true)
+
+        return if (notificationId == ID_REMINDER) {
+            dailyNotification
+        } else {
+            releaseNotification
+        }
+    }
 }

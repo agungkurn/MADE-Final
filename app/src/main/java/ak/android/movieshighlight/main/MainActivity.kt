@@ -6,8 +6,10 @@ import ak.android.movieshighlight.common.show
 import ak.android.movieshighlight.common.toast
 import ak.android.movieshighlight.main.search.SearchViewModel
 import ak.android.movieshighlight.notification.NotificationReceiver
+import ak.android.movieshighlight.notification.PreferenceActivity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -49,6 +51,13 @@ class MainActivity : AppCompatActivity() {
         setupSearchViewExpandCollapse(menu)
         setupSearchViewConfig(searchView, searchManager)
 
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_preference) {
+            startActivity(Intent(this, PreferenceActivity::class.java))
+        }
         return true
     }
 

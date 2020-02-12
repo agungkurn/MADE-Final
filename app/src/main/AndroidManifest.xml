@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".notification.PreferenceActivity"
+            android:label="@string/preference_notification"
+            android:launchMode="singleTop"
+            android:parentActivityName=".main.MainActivity" />
+
         <receiver
             android:name=".notification.NotificationReceiver"
             android:enabled="true"
