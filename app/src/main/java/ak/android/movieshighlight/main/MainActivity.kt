@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     it.restoreState(state)
                 }.navigateUp()
 
-                searchMenuItem.isVisible = false
+                searchMenuItem.isVisible = true
                 nav_bar.show()
 
                 return true
