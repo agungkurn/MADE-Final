@@ -24,4 +24,5 @@
     <string name="notification_daily_title">Have you opened this app today?</string>
     <string name="notification_daily_content">Looking for some movies and TV series to watch today?</string>
     <string name="favorite_no_item">You have no favorite item for this category</string>
+    <string name="new_release">movies released today!</string>
 </resources>

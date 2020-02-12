@@ -36,41 +36,41 @@ data class FilmInfo(
     val category: String
 ) : Parcelable
 
-fun List<FilmInfo>.toMovieModel() = map {
-    if (it.category == "movie") {
+fun List<FilmInfo>.toMovieModel() = map { info ->
+    if (info.category == "movie") {
         MovieResultsItem(
-            id = it.id,
-            title = it.title,
-            originalTitle = it.originalTitle,
-            originalLanguage = it.originalLanguage,
-            genreIds = it.genreId.split(", ").map { it.toInt() },
-            voteAverage = it.rate,
-            adult = it.adult,
-            releaseDate = it.dateReleased,
-            overview = it.overview,
-            posterPath = it.poster,
-            backdropPath = it.banner
+            id = info.id,
+            title = info.title,
+            originalTitle = info.originalTitle,
+            originalLanguage = info.originalLanguage,
+            genreIds = info.genreId.split(", ").map { it.toInt() },
+            voteAverage = info.rate,
+            adult = info.adult,
+            releaseDate = info.dateReleased,
+            overview = info.overview,
+            posterPath = info.poster,
+            backdropPath = info.banner
         )
     } else {
-        throw TypeCastException("${it.category} can not be converted to MovieResultsItem")
+        throw TypeCastException("${info.category} can not be converted to MovieResultsItem")
     }
 }
 
-fun List<FilmInfo>.toTvModel() = map {
-    if (it.category == "tv") {
+fun List<FilmInfo>.toTvModel() = map { info ->
+    if (info.category == "tv") {
         TvResultsItem(
-            id = it.id,
-            name = it.title,
-            originalName = it.originalTitle,
-            originalLanguage = it.originalLanguage,
-            genreIds = it.genreId.split(", ").map { it.toInt() },
-            voteAverage = it.rate,
-            firstAirDate = it.dateReleased,
-            overview = it.overview,
-            posterPath = it.poster,
-            backdropPath = it.banner
+            id = info.id,
+            name = info.title,
+            originalName = info.originalTitle,
+            originalLanguage = info.originalLanguage,
+            genreIds = info.genreId.split(", ").map { it.toInt() },
+            voteAverage = info.rate,
+            firstAirDate = info.dateReleased,
+            overview = info.overview,
+            posterPath = info.poster,
+            backdropPath = info.banner
         )
     } else {
-        throw TypeCastException("${it.category} can not be converted to TvResultsItem")
+        throw TypeCastException("${info.category} can not be converted to TvResultsItem")
     }
 }

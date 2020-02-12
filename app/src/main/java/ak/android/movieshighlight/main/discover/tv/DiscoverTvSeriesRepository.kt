@@ -15,7 +15,7 @@ object DiscoverTvSeriesRepository {
 
     suspend fun discoverTvSeries() {
         withContext(Dispatchers.IO) {
-            val response = RetrofitFactory.getMovieOrTvShow().fetchTvShowDiscovered()
+            val response = RetrofitFactory.getMovieOrTvShow().fetchTvSeriesDiscovered()
 
             if (response.isSuccessful) {
                 val result = response.body()

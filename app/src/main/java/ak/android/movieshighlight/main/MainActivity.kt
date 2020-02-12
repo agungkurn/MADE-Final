@@ -125,5 +125,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val notification = NotificationReceiver()
         notification.setDailyNotification(this)
+        notification.setDailyRelease(this)
     }
 }
