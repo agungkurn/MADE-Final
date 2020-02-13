@@ -1,7 +1,7 @@
 package ak.android.movieshighlight.details
 
 import ak.android.movieshighlight.R
-import ak.android.movieshighlight.database.FavoriteDatabase
+import ak.android.movieshighlight.database.AppDatabase
 import ak.android.movieshighlight.database.FilmInfo
 import android.app.Application
 import android.widget.Toast
@@ -19,33 +19,25 @@ import kotlinx.coroutines.withContext
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
-    private val db = FavoriteDatabase.getDatabase(context).getFavorite()
+    private val db = AppDatabase.getDatabase(context).getFavorite()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            DetailsRepository.fetchGenres()
+            DetailsRepository.fetchGenres(context)
         }
     }
 
-    val genres: (List<Int>) -> LiveData<List<String>> =
-        { genreId ->
-            // Transform the data (GenreItems to String)
-            Transformations.map(DetailsRepository.genres) { apiResult ->
-                if (!apiResult.isNullOrEmpty()) {
-                    apiResult.filter { genresItem ->
-                        // Find by ids
-                        genreId.any { requested ->
-                            genresItem.id == requested
-                        }
-                    }.map { genresItem ->
-                        // Take name ONLY
-                        genresItem.name
-                    }.requireNoNulls()
-                } else {
-                    emptyList()
+    val genres = { genreIds: List<Int> ->
+        Transformations.map(DetailsRepository.genres(context)) { master ->
+            master.filter { genre ->
+                genreIds.any { id ->
+                    genre.id == id
                 }
+            }.map { genre ->
+                genre.name
             }
         }
+    }
 
     val isFavorite: (Int) -> LiveData<Boolean> =
         { id ->

@@ -1,10 +1,10 @@
 package ak.android.movieshighlight.details
 
 import ak.android.movieshighlight.common.errLog
+import ak.android.movieshighlight.database.AppDatabase
 import ak.android.movieshighlight.model.genre.GenresItem
 import ak.android.movieshighlight.retrofit.RetrofitFactory
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -12,11 +12,12 @@ import java.io.IOException
 object DetailsRepository {
     private val genreList = mutableListOf<GenresItem>()
 
-    private val _genres = MutableLiveData<List<GenresItem>>()
-    val genres: LiveData<List<GenresItem>> = _genres
+    val genres = { context: Context ->
+        AppDatabase.getDatabase(context).getGenres().getGenres()
+    }
 
 
-    suspend fun fetchGenres() {
+    suspend fun fetchGenres(context: Context) {
         if (genreList.isEmpty()) {
             withContext(Dispatchers.IO) {
                 val movieResponse = RetrofitFactory.getMovieOrTvShow().getMovieGenre()
@@ -24,7 +25,6 @@ object DetailsRepository {
                     val result = movieResponse.body()
                     result?.genres?.let {
                         genreList.addAll(it.requireNoNulls())
-                        _genres.postValue(genreList)
                     }
                 } else {
                     errLog("error getting genres for movie")
@@ -40,13 +40,18 @@ object DetailsRepository {
                             val available = genreList.contains(fetchedGenre)
                             if (!available) {
                                 genreList.add(fetchedGenre)
-                                _genres.postValue(genreList)
                             }
                         }
                     }
                 } else {
                     errLog("error getting genres for tv")
                     throw IOException("error getting genres for tv")
+                }
+
+                genreList.forEach {
+                    it.toDbModel()?.let { dbModel ->
+                        AppDatabase.getDatabase(context).getGenres().insertGenres(dbModel)
+                    }
                 }
             }
         }

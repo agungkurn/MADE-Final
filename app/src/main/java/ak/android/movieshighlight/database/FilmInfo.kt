@@ -2,6 +2,7 @@ package ak.android.movieshighlight.database
 
 import ak.android.movieshighlight.model.movie.MovieResultsItem
 import ak.android.movieshighlight.model.tv.TvResultsItem
+import android.content.ContentValues
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,32 +10,51 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "favorite")
 @Parcelize
-data class FilmInfo(
+class FilmInfo(
     @PrimaryKey
-    val id: Int,
+    var id: Int = 0,
 
-    val title: String?,
+    var title: String? = null,
 
-    val originalTitle: String,
+    var originalTitle: String? = null,
 
-    val originalLanguage: String,
+    var originalLanguage: String? = null,
 
-    val genreId: String,
+    var genreId: String? = null,
 
-    val rate: Double,
+    var rate: Double? = null,
 
-    val adult: Boolean,
+    var adult: Boolean = false,
 
-    val dateReleased: String,
+    var dateReleased: String? = null,
 
-    val overview: String,
+    var overview: String? = null,
 
-    val poster: String,
+    var poster: String? = null,
 
-    val banner: String,
+    var banner: String? = null,
 
-    val category: String
-) : Parcelable
+    var category: String? = null
+) : Parcelable {
+    companion object {
+        fun fromContentValues(values: ContentValues?): FilmInfo {
+            return FilmInfo(
+                id = values?.getAsInteger("id") ?: 0,
+                title = values?.getAsString("title"),
+                originalTitle = values?.getAsString("originalTitle"),
+                originalLanguage = values?.getAsString("originalLanguage"),
+                genreId = values?.getAsString("genreId"),
+                rate = values?.getAsDouble("rate"),
+                adult = values?.getAsBoolean("adult") ?: false,
+                dateReleased = values?.getAsString("dateReleased"),
+                overview = values?.getAsString("overview"),
+                poster = values?.getAsString("poster"),
+                banner = values?.getAsString("banner"),
+                category = values?.getAsString("category")
+            )
+        }
+    }
+}
 
 fun List<FilmInfo>.toMovieModel() = map { info ->
     if (info.category == "movie") {
@@ -43,7 +63,7 @@ fun List<FilmInfo>.toMovieModel() = map { info ->
             title = info.title,
             originalTitle = info.originalTitle,
             originalLanguage = info.originalLanguage,
-            genreIds = info.genreId.split(", ").map { it.toInt() },
+            genreIds = info.genreId?.split(", ")?.map { it.toInt() },
             voteAverage = info.rate,
             adult = info.adult,
             releaseDate = info.dateReleased,
@@ -63,7 +83,7 @@ fun List<FilmInfo>.toTvModel() = map { info ->
             name = info.title,
             originalName = info.originalTitle,
             originalLanguage = info.originalLanguage,
-            genreIds = info.genreId.split(", ").map { it.toInt() },
+            genreIds = info.genreId?.split(", ")?.map { it.toInt() },
             voteAverage = info.rate,
             firstAirDate = info.dateReleased,
             overview = info.overview,

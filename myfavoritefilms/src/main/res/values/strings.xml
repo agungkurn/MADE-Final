@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Favorite Films</string>
+    <string name="favorite_no_item">No item available</string>
+</resources>

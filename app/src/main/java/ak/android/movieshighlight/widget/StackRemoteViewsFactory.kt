@@ -3,7 +3,7 @@ package ak.android.movieshighlight.widget
 import ak.android.movieshighlight.BuildConfig
 import ak.android.movieshighlight.R
 import ak.android.movieshighlight.common.errLog
-import ak.android.movieshighlight.database.FavoriteDatabase
+import ak.android.movieshighlight.database.AppDatabase
 import ak.android.movieshighlight.database.FilmInfo
 import android.content.Context
 import android.content.Intent
@@ -16,7 +16,7 @@ import java.io.IOException
 class StackRemoteViewsFactory(private val context: Context) :
     RemoteViewsService.RemoteViewsFactory {
 
-    private val db = FavoriteDatabase.getDatabase(context).getFavorite()
+    private val db = AppDatabase.getDatabase(context).getFavorite()
 
     private val favs = mutableListOf<FilmInfo>()
 

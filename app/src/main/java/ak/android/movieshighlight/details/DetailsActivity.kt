@@ -69,14 +69,14 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar?.title = data.title ?: data.originalTitle
 
         tv_rate.text = data.rate.toString()
-        tv_year.text = data.dateReleased.substring(0..3)
+        tv_year.text = data.dateReleased?.substring(0..3)
         tv_overview.text = data.overview
 
         if (data.adult) {
             tv_adult.show()
         }
 
-        data.genreId.split(", ").map { it.toInt() }.let {
+        data.genreId?.split(", ")?.map { it.toInt() }?.let {
             viewModel.genres(it.requireNoNulls()).observe(this) { genres ->
                 genres.forEach { genre ->
                     chip_genre.addView(

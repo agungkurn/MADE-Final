@@ -5,15 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [FilmInfo::class], version = 1)
-abstract class FavoriteDatabase : RoomDatabase() {
+@Database(entities = [FilmInfo::class, GenreDb::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun getFavorite(): FavoriteDao
+    abstract fun getGenres(): GenreDao
 
     companion object {
         @Volatile
-        private var INSTANCE: FavoriteDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): FavoriteDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             val temp = INSTANCE
             if (temp != null) {
                 return temp
@@ -22,8 +23,8 @@ abstract class FavoriteDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    FavoriteDatabase::class.java,
-                    "favorite"
+                    AppDatabase::class.java,
+                    "film_db"
                 ).build()
                 INSTANCE = instance
                 return instance

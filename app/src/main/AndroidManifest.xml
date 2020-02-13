@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <permission android:name="ak.android.movieshighlight.provider.READ_WRITE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="ak.android.movieshighlight.provider"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="ak.android.movieshighlight.provider.READ_WRITE" />
+
         <receiver android:name=".widget.FavoriteMovieWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
