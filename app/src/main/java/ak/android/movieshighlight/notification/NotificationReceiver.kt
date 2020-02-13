@@ -162,10 +162,9 @@ class NotificationReceiver : BroadcastReceiver() {
 
         if (alarmIsEnabled(context, ID_NEW_RELEASE)) {
             if (alarmIsNotActive(context, ID_NEW_RELEASE, intent)) {
-                alarmManager.setInexactRepeating(
+                alarmManager.set(
                     AlarmManager.RTC_WAKEUP,
                     calendar.timeInMillis,
-                    AlarmManager.INTERVAL_DAY,
                     pendingIntent
                 )
                 log("Daily release set")
