@@ -3,14 +3,14 @@
 <ul>
 	<li>
 		<p>Discover movies/tv shows</p>
-		<img src="screenshots/discover.jpg" width=720/>
+		<img src="screenshots/discover.png" width=720/>
 	</li>
 	<li>
 		<p>Detail movies/tv shows</p>
-		<img src="screenshots/details.jpg" width=720/>
+		<img src="screenshots/details.png" width=720/>
 	</li>
 	<li>
 		<p>Search movies/tv shows</p>
-		<img src="screenshots/search.jpg" width=720/>
+		<img src="screenshots/search.png" width=720/>
 	</li>
 </ul>
